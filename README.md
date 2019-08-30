@@ -1,51 +1,9 @@
-# EfficientNet PyTorch
-
-### Update (July 31, 2019)
-
-_Upgrade the pip package with_ `pip install --upgrade efficientnet-pytorch`
-
-The B6 and B7 models are now available. Additionally, _all_ pretrained models have been updated to use AutoAugment preprocessing, which translates to better performance across the board. Usage is the same as before: 
-```python
-from efficientnet_pytorch import EfficientNet
-model = EfficientNet.from_pretrained('efficientnet-b7') 
-```
-
-### Update (June 29, 2019)
-
-This update adds easy model exporting ([#20](https://github.com/lukemelas/EfficientNet-PyTorch/issues/20)) and feature extraction ([#38](https://github.com/lukemelas/EfficientNet-PyTorch/issues/38)). 
-
- * [Example: Export to ONNX](#example-export)
- * [Example: Extract features](#example-feature-extraction)
- * Also: fixed a CUDA/CPU bug ([#32](https://github.com/lukemelas/EfficientNet-PyTorch/issues/32))
-
-It is also now incredibly simple to load a pretrained model with a new number of classes for transfer learning:
-```python
-model = EfficientNet.from_pretrained('efficientnet-b1', num_classes=23)
-``` 
-
-
-### Update (June 23, 2019)
-
-The B4 and B5 models are now available. Their usage is identical to the other models: 
-```python
-from efficientnet_pytorch import EfficientNet
-model = EfficientNet.from_pretrained('efficientnet-b4') 
-```
+# Training and Inference for Integer-based Semantic Segmentation Network
 
 ### Overview
-This repository contains an op-for-op PyTorch reimplementation of [EfficientNet](https://arxiv.org/abs/1905.11946), along with pre-trained models and examples. 
+This repository contains an implementation of Training and Inference for Integer-based Semantic Segmentation Network along with pre-trained models. 
 
-The goal of this implementation is to be simple, highly extensible, and easy to integrate into your own projects. This implementation is a work in progress -- new features are currently being implemented. 
-
-At the moment, you can easily:  
- * Load pretrained EfficientNet models 
- * Use EfficientNet models for classification or feature extraction 
- * Evaluate EfficientNet models on ImageNet or your own images
-
-_Upcoming features_: In the next few days, you will be able to:
- * Train new models from scratch on ImageNet with a simple command 
- * Quickly finetune an EfficientNet on your own dataset
- * Export EfficientNet models for production
+The goal of this implementation is to help you understand the implementation of quantization framework for semantic segmentation, and integrade them to your own network if possible.
 
 ### Table of contents
 1. [About EfficientNet](#about-efficientnet)
