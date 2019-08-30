@@ -168,5 +168,3 @@ See `examples/imagenet` for details about evaluating on ImageNet.
 ### Contributing
 
 If you find a bug, create a GitHub issue, or even better, submit a pull request. Similarly, if you have questions, simply post them as GitHub issues.   
-
-I look forward to seeing what the community does with these models! 
