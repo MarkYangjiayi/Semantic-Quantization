@@ -1,4 +1,4 @@
-# Semantic-Quantization
+# Tensorflow code for Training and Inference for Integer-based Semantic Segmentation
 This repository consists of a Quantized Neural Network for Semantic Segmentation
 Code is based on this repository, many thanks to the original author:https://github.com/boluoweifenda/WAGE
 The dataset used is ADE20k which can be found here:https://groups.csail.mit.edu/vision/datasets/ADE20K/
