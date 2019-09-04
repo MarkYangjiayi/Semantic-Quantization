@@ -1,7 +1,7 @@
 # Training and Inference for Integer-based Semantic Segmentation Network
 
 ### Overview
-This repository contains an implementation of Training and Inference for Integer-based Semantic Segmentation Network along with pre-trained models.
+This repository contains a Tensorflow implementation of Training and Inference for Integer-based Semantic Segmentation Network along with pre-trained models.
 
 The goal of this implementation is to help you understand the implementation of quantization framework for semantic segmentation, and integrade them to your own network if possible.
 
@@ -31,7 +31,6 @@ cd Semantic-Quantization
 pip install -r requirements.txt
 ```
 ### Usage
-
-
+ Tensorflow
 ### Contributing
 If you find a bug, create a GitHub issue, or even better, submit a pull request. Similarly, if you have questions, simply post them as GitHub issues.   
