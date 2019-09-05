@@ -1,7 +1,7 @@
 # Training and Inference for Integer-based Semantic Segmentation Network
 
 ### Overview
-This repository contains a Tensorflow implementation of Training and Inference for Integer-based Semantic Segmentation Network along with pre-trained models.
+This repository contains a Tensorflow implementation of Training and Inference for Integer-based Semantic Segmentation Network along with pre-trained models.  
 
 The goal of this implementation is to help you understand the implementation of quantization framework for semantic segmentation, and integrade them to your own network if possible.
 
@@ -17,7 +17,7 @@ The goal of this implementation is to help you understand the implementation of 
 6. [Contributing](#contributing)  -->
 1. [Installation](#about-efficientnet)
 2. [Download Data](#Download Data)
-2. [Usage](#usage)
+3. [Usage](#usage)
     * [Training](#loading-pretrained-models)
     * [Evaluation](#example-classification)
     * [Visualization](#example-feature-extraction)
@@ -39,16 +39,17 @@ To train with the "trainaug" dataset, reference this [blog post](https://www.sun
 ### Usage
 * Training
 ```bash
-python main.py
+python main.py --mode "train"
 ```
 * Evaluation
 ```bash
-python main.py
+python main.py --mode "val"
 ```
 * Visualization  
 ```bash
-python main.py
+python main.py --mode "vis"
 ```
+Note that the output prediction and ground truth is labeled with single channel. To gain better visualization, use color_convert.py to convert them into RGB images.
 
 ### Contributing
 If you find a bug, create a GitHub issue, or even better, submit a pull request. Similarly, if you have questions, simply post them as GitHub issues.   
