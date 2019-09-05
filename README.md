@@ -16,6 +16,7 @@ The goal of this implementation is to help you understand the implementation of 
     * [Example: Export to ONNX](#example-export)
 6. [Contributing](#contributing)  -->
 1. [Installation](#about-efficientnet)
+2. [Download Data](#Download Data)
 2. [Usage](#usage)
     * [Training](#loading-pretrained-models)
     * [Evaluation](#example-classification)
@@ -23,14 +24,31 @@ The goal of this implementation is to help you understand the implementation of 
 3. [Contributing](#contributing)
 
 ### Installation
-Make sure you have python3 installed in your environment.<br/>
+Make sure you have python3 installed in your environment.  
 Type the following commands:
 ```bash
 git clone https://github.com/MarkYangjiayi/Semantic-Quantization
 cd Semantic-Quantization
 pip install -r requirements.txt
 ```
+
+### Download Data
+We use TFrecord to feed data into our network, the code references DeepLabv3+ from google, which you can find [here]().<br/>
+To train with the "trainaug" dataset, reference this [blog post](https://www.sun11.me/blog/2018/how-to-use-10582-trainaug-images-on-DeeplabV3-code/).
+
 ### Usage
- Tensorflow
+* Training
+```bash
+python main.py
+```
+* Evaluation
+```bash
+python main.py
+```
+* Visualization  
+```bash
+python main.py
+```
+
 ### Contributing
 If you find a bug, create a GitHub issue, or even better, submit a pull request. Similarly, if you have questions, simply post them as GitHub issues.   
