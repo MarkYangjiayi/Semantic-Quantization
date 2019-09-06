@@ -21,7 +21,7 @@ loss_dir="../save/" + note + "/loss/"
 vis_dir="../save/" + note + "/vis/"
 
 # Choose the GPU to run on
-os.environ["CUDA_VISIBLE_DEVICES"] = "2"
+os.environ["CUDA_VISIBLE_DEVICES"] = "4"
 
 class args:
     display = 1
@@ -53,13 +53,13 @@ class args:
 class dataset:
     name = "pascal_voc_seg"
     train = 1464       #number of training images
-    train_aug = 10582
+    trainaug = 10582
     trainval = 2913
     val = 1449
     classes = 21           #classes including ignore_label
     ignore_label = 255        #label that does not participate training and inference
     train_steps = 30000
-    data_dir = "./data/tfrecord"#"../../dataSet/pascal_voc_seg/tfrecord"
+    data_dir = "../../data/pascal_voc_seg/tfrecord"#"../../dataSet/pascal_voc_seg/tfrecord"
 
 def quantize_grads(grads_and_vars,model_class,lrate):
     grads = []
@@ -83,7 +83,7 @@ tf.logging.set_verbosity(tf.logging.INFO)
 print("Setting up dataset reader")
 with tf.device('/cpu:0'):
     data_train = segmentation_dataset.get_dataset(
-            dataset.name,"train_aug",dataset.data_dir)#training for ade, train_aug for pascal
+            dataset.name,"trainaug",dataset.data_dir)#training for ade, train_aug for pascal
     data_val = segmentation_dataset.get_dataset(
             dataset.name,"val",dataset.data_dir)#validation for ade, val for pascal
     batchTrain = input_generator.get(
@@ -174,7 +174,7 @@ with tf.Session() as sess:
             saver.restore(sess, ckpt.model_checkpoint_path)
             print("Last check point restored...")
         else:
-            restorer.restore(sess, '../ckpts/resnet_v2_50.ckpt')
+            restorer.restore(sess, '../pretrain/resnet_v2_50.ckpt')
             sess.run([model.W_q_op])
             print("Model restored, weights quantized.")
 

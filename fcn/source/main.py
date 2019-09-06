@@ -28,7 +28,7 @@ logging.basicConfig(format='%(message)s',
                     stream=sys.stdout)
 
 class args:
-    vgg16_path = "../vgg16.npy"
+    vgg16_path = "../pretrain/vgg16.npy"
     write_summary = 1000
     try_save = 1000
     train_steps = 30000
@@ -69,7 +69,7 @@ class dataset:
     val = 1449
     classes = 21           #classes including ignore_label
     ignore_label = 255        #label that does not participate training and inference
-    data_dir = "../../dataSet/pascal_voc_seg/tfrecord"
+    data_dir = "../../data/pascal_voc_seg/tfrecord"
 
 # img1 = scp.misc.imread("./test_data/tabby_cat.png")
 def quantize_grads(grads_and_vars,vgg_fcn,lr):
@@ -99,7 +99,7 @@ def train(loss_val,vgg_fcn):
 with tf.device('/cpu:0'):
         print("Setting up dataset reader")
         data_train = segmentation_dataset.get_dataset(
-                dataset.name,"train_aug",dataset.data_dir)#training for ade, train_aug for pascal
+                dataset.name,"trainaug",dataset.data_dir)#training for ade, train_aug for pascal
         data_val = segmentation_dataset.get_dataset(
                 dataset.name,"val",dataset.data_dir)#validation for ade, val for pascal
         batchTrain = input_generator.get(
