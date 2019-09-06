@@ -16,7 +16,7 @@ The goal of this implementation is to help you understand the implementation of 
     * [Example: Export to ONNX](#example-export)
 6. [Contributing](#contributing)  -->
 1. [Installation](#about-efficientnet)
-2. [Download Data](#Download Data)
+2. [Download Data](#Download-Data)
 3. [Usage](#usage)
     * [Training](#loading-pretrained-models)
     * [Evaluation](#example-classification)
