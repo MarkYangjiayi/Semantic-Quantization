@@ -15,12 +15,12 @@ The goal of this implementation is to help you understand the implementation of 
     * [Example: Extract features](#example-feature-extraction)
     * [Example: Export to ONNX](#example-export)
 6. [Contributing](#contributing)  -->
-1. [Installation](#about-efficientnet)
-2. [Download Data](#Download-Data)
+1. [Installation](#installation)
+2. [Download Data](#download-data)
 3. [Usage](#usage)
-    * [Training](#loading-pretrained-models)
-    * [Evaluation](#example-classification)
-    * [Visualization](#example-feature-extraction)
+    * [Training](#training)
+    * [Evaluation](#evaluation)
+    * [Visualization](#visualization)
 3. [Contributing](#contributing)
 
 ### Installation
