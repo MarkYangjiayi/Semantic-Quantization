@@ -59,7 +59,7 @@ class dataset:
     classes = 21           #classes including ignore_label
     ignore_label = 255        #label that does not participate training and inference
     train_steps = 30000
-    data_dir = "../../dataSet/pascal_voc_seg/tfrecord"
+    data_dir = "./data/tfrecord"#"../../dataSet/pascal_voc_seg/tfrecord"
 
 def quantize_grads(grads_and_vars,model_class,lrate):
     grads = []

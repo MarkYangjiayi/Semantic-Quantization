@@ -24,7 +24,7 @@ The goal of this implementation is to help you understand the implementation of 
 3. [Contributing](#contributing)
 
 ### Installation
-Make sure you have python3 installed in your environment.  
+Make sure you have **python3** installed in your environment.  
 Type the following commands:
 ```bash
 git clone https://github.com/MarkYangjiayi/Semantic-Quantization
@@ -33,23 +33,29 @@ pip install -r requirements.txt
 ```
 
 ### Download Data
-We use TFrecord to feed data into our network, the code references DeepLabv3+ from google, which you can find [here]().<br/>
-To train with the "trainaug" dataset, reference this [blog post](https://www.sun11.me/blog/2018/how-to-use-10582-trainaug-images-on-DeeplabV3-code/).
+We use TFrecord to feed data into our network, the code references DeepLabv3+ from google, which you can find [here](https://github.com/tensorflow/models/tree/master/research/deeplab).<br/>
+To train the model with PASCAL VOC 2012 dataset, first download [PASCAL VOC 2012](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/VOCtrainval_11-May-2012.tar) and [SegmentationClassAug](https://www.dropbox.com/s/oeu149j8qtbs1x0/SegmentationClassAug.zip?dl=0). Do not unzip and move them into the "./data" folder. Then,
+```bash
+cd data
+sh convert_voc2012_aug.sh
+```
+If successful, you should have an "./data/pascal_voc_seg/tfrecord" folder with the dataset ready in TFRecords format.
+Reference this [blog post](https://www.sun11.me/blog/2018/how-to-use-10582-trainaug-images-on-DeeplabV3-code/) for more information.
 
 ### Usage
 * Training
-```bash
-python main.py --mode "train"
+```python
+mode = "train"
 ```
 * Evaluation
-```bash
-python main.py --mode "val"
+```python
+mode = "val"
 ```
 * Visualization  
-```bash
-python main.py --mode "vis"
+```python
+mode = "vis"
 ```
-Note that the output prediction and ground truth is labeled with single channel. To gain better visualization, use color_convert.py to convert them into RGB images.
+Note that the output prediction and ground truth is labeled with single channel. To gain better visualization, you have to convert them into RGB images.
 
 ### Contributing
 If you find a bug, create a GitHub issue, or even better, submit a pull request. Similarly, if you have questions, simply post them as GitHub issues.   
