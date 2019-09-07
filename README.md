@@ -1,5 +1,5 @@
 # Training and Inference for Integer-based Semantic Segmentation Network
-
+This repository is still under cosntruction, use the code at your own risk!
 ### Overview
 This repository contains a Tensorflow implementation of Training and Inference for Integer-based Semantic Segmentation Network along with pre-trained models.  
 
