@@ -101,8 +101,8 @@ _PASCAL_VOC_SEG_INFORMATION = DatasetDescriptor(
 # You are required to figure it out for your training/testing example.
 _ADE20K_INFORMATION = DatasetDescriptor(
     splits_to_sizes={
-        'training': 20210,  # num of samples in images/training
-        'validation': 2000,  # num of samples in images/validation
+        'train': 20210,  # num of samples in images/training
+        'val': 2000,  # num of samples in images/validation
     },
     num_classes=151,
     ignore_label=0,
