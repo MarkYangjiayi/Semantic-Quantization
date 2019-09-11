@@ -16,7 +16,7 @@ import logging
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "4"#default should be 1
 
-note = "9-06-int8"#8888_f_new
+note = "std_quant"
 mode = "train"#train, val or vis
 logs_dir="../save/" + note + "/ckpt/"#change this when you train a new model
 sums_dir="../save/" + note + "/summary/"
@@ -32,24 +32,13 @@ class args:
     write_summary = 1000
     try_save = 1000
     train_steps = 30000
-    batchSize = 4
+    batchSize = 8
     testBatchSize = 1
     crop_size = [512,512]   #size to crop, automatically padded
-    #lr_schedule = [1,0.001,10000,0.0005,20000,0.00025]#qg3.1
-    #lr_schedule = [1,0.001,10000,0.0005,20000,0.00025]#qg3
-    #lr_schedule = [1,0.001,2000,0.0005,5000,0.00025,10000,0.00001]#qg2
-    #lr_schedule = [1, 0.0625, 10000, 0.03125, 24000, 0.015625]#qg1.2 for U18
-    #lr_schedule = [1, 0.0625, 10000, 0.03125]#qg1.1
-    lr_schedule = [1, 0.0625, 10000, 0.03125, 20000, 0.015625]#qg1 this is the official learning rate
-    #lr_schedule = [1, 0.0625, 50000, 0.03125, 100000, 0.015625, 150000, 0.0078125]#lr2 off learning rate for ADE20K
-    #lr_schedule = [1, 0.0625, 50000, 0.03125, 100000, 0.015625, 150000, 0.0078125]#lr1
-    #lr_schedule = [1, 8, 10000, 4, 20000, 2]#quantized training
-    # lr_schedule = [1, 2e-5, 4000, 1e-5, 8000, 2e-6, 10000, 1e-6]#float training
-    # lr_schedule = [1, 2e-5, 4000, 1e-5, 15000, 2e-6]#float training
-    # lr_schedule = [1, 0.001]
-    #lr_schedule = [1, 0.001, 50000, 0.0005, 100000, 0.0001, 120000, 0.00005,150000,0.00001]#learning_rate 2
-    # lr_schedule = [1, 0.001, 5000, 0.0005, 10000, 0.00025,15000, 0.0001,25000, 0.00005]#learning rate for pascal
-    is_training = True
+    if mode == "train":
+        is_training = True
+    else:
+        is_training = False
 
 # class dataset:
 #     name = "ade20k"
@@ -59,7 +48,8 @@ class args:
 #     val = 2000
 #     classes = 151           #classes including ignore_label
 #     ignore_label = 0        #label that does not participate training and inference
-#     data_dir = "../../dataSet/ADEChallengeData2016/tfrecord"
+#     data_dir = "../../data/ADE20K/tfrecord"
+#     lr_schedule = [1, 0.0625, 50000, 0.03125, 100000, 0.015625]#lr2 off learning rate for ADE20K
 
 class dataset:
     name = "pascal_voc_seg"
@@ -70,6 +60,7 @@ class dataset:
     classes = 21           #classes including ignore_label
     ignore_label = 255        #label that does not participate training and inference
     data_dir = "../../data/pascal_voc_seg/tfrecord"
+    lr_schedule = [1, 0.0625, 10000, 0.03125, 20000, 0.015625]#qg1 this is the official learning rate
 
 # img1 = scp.misc.imread("./test_data/tabby_cat.png")
 def quantize_grads(grads_and_vars,vgg_fcn,lr):
@@ -99,7 +90,7 @@ def train(loss_val,vgg_fcn):
 with tf.device('/cpu:0'):
         print("Setting up dataset reader")
         data_train = segmentation_dataset.get_dataset(
-                dataset.name,"trainaug",dataset.data_dir)#training for ade, train_aug for pascal
+                dataset.name,"train",dataset.data_dir)#training for ade, train_aug for pascal
         data_val = segmentation_dataset.get_dataset(
                 dataset.name,"val",dataset.data_dir)#validation for ade, val for pascal
         batchTrain = input_generator.get(
@@ -207,10 +198,10 @@ with tf.Session() as sess:
             writer.writerow(["Step","Loss"])
             for step in range(1, args.train_steps):
                 #update learning rate
-                if len(args.lr_schedule) / 2:
-                  if step == args.lr_schedule[0]:
-                    args.lr_schedule.pop(0)
-                    lr_new = args.lr_schedule.pop(0)
+                if len(dataset.lr_schedule) / 2:
+                  if step == dataset.lr_schedule[0]:
+                    dataset.lr_schedule.pop(0)
+                    lr_new = dataset.lr_schedule.pop(0)
                     lr_old = sess.run(lr)
                     sess.run(lr.assign(lr_new))
                     print ('lr: %f -> %f' % (lr_old, lr_new))

@@ -32,8 +32,7 @@ class args:
     batchSize = 8
     testBatchSize = 1# This should not change to ensure correct validation mIoU
     crop_size = [512,512]#size to crop, automatically padded
-    lr_schedule = [1, 0.0625, 3000, 0.03125, 12000, 0.015625, 20000, 0.0078125]#learning rate for PASCAL VOC 2012 dataset
-    #lr_schedule = [1, 0.0625, 50000, 0.03125, 100000, 0.015625, 150000, 0.0078125]#learning rate for ADE20K dataset
+
     if mode == "train":
         is_training = True
     else:
@@ -48,7 +47,8 @@ class args:
 #     classes = 151           #classes including ignore_label
 #     ignore_label = 0        #label that does not participate training and inference
 #     train_steps = 150000
-#     data_dir = "../../dataSet/ADEChallengeData2016/tfrecord"
+#     data_dir = "../../data/ADE20K/tfrecord"
+#     lr_schedule = [1, 0.0625, 50000, 0.03125, 100000, 0.015625, 150000, 0.0078125]#learning rate for ADE20K dataset
 
 class dataset:
     name = "pascal_voc_seg"
@@ -60,6 +60,7 @@ class dataset:
     ignore_label = 255        #label that does not participate training and inference
     train_steps = 30000
     data_dir = "../../data/pascal_voc_seg/tfrecord"#"../../dataSet/pascal_voc_seg/tfrecord"
+    lr_schedule = [1, 0.0625, 3000, 0.03125, 12000, 0.015625, 20000, 0.0078125]#learning rate for PASCAL VOC 2012 dataset
 
 def quantize_grads(grads_and_vars,model_class,lrate):
     grads = []
@@ -83,9 +84,9 @@ tf.logging.set_verbosity(tf.logging.INFO)
 print("Setting up dataset reader")
 with tf.device('/cpu:0'):
     data_train = segmentation_dataset.get_dataset(
-            dataset.name,"trainaug",dataset.data_dir)#training for ade, train_aug for pascal
+            dataset.name,"trainaug",dataset.data_dir)#train for ADE20K, trainaug for PASCAL
     data_val = segmentation_dataset.get_dataset(
-            dataset.name,"val",dataset.data_dir)#validation for ade, val for pascal
+            dataset.name,"val",dataset.data_dir)
     batchTrain = input_generator.get(
         data_train,
         args.crop_size,
@@ -205,10 +206,10 @@ with tf.Session() as sess:
             writer = csv.writer(f)
             for step in range(1, dataset.train_steps):
                 # update learning rate
-                if len(args.lr_schedule) / 2:
-                  if step == args.lr_schedule[0]:
-                    args.lr_schedule.pop(0)
-                    lr_new = args.lr_schedule.pop(0)
+                if len(dataset.lr_schedule) / 2:
+                  if step == dataset.lr_schedule[0]:
+                    dataset.lr_schedule.pop(0)
+                    lr_new = dataset.lr_schedule.pop(0)
                     lr_old = sess.run(lr)
                     sess.run(lr.assign(lr_new))
                     tf.logging.info('lr: %f -> %f' % (lr_old, lr_new))
