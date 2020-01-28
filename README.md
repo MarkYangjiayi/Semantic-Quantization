@@ -1,7 +1,7 @@
 # Training and Inference for Integer-based Semantic Segmentation Network
 This repository is still under cosntruction, use the code at your own risk!
 ### Overview
-This repository contains a Tensorflow implementation of Training and Inference for Integer-based Semantic Segmentation Network along with pre-trained models. See the paper [Training and Inference for Integer-Based Semantic Segmentation Network](https://jiayiyang.info/files/QFCN.pdf) for details.
+This repository contains a Tensorflow implementation of Training and Inference for Integer-based Semantic Segmentation Network along with pre-trained models.
 
 The goal of this implementation is to help you understand the implementation of quantization framework for semantic segmentation, and integrade them to your own network if possible.
 
